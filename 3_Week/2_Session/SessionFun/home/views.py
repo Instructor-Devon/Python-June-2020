@@ -9,7 +9,8 @@ def index(request):
 
     context = {
         'username': request.session['username'],
-        'users': request.session['users']
+        'users': request.session['users'],
+        'colors': ['green', 'red', 'blue']
     }
     return render(request, 'index.html', context)
 

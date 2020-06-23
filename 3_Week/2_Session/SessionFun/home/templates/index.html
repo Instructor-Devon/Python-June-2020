@@ -1,29 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Times</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <h1>Welcome {{ username }}!</h1>
-    <p>Let's play a game!  Please enter your name.</p>
-    <a href="/game">Go to Game!</a>
-    <form action="/create" method="POST">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="hidden" name="building" value="farm">
-        <input type="text" name="username" id="username">
-        <button>Submit</button>
-    </form>
-    <hr>
-    <h2>Past Users</h2>
-    <ul>
-        {% for user in users %}
-        <li>{{ user }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome {{ username }}!</h1>
+<p>Let's play a game!  Please enter your name.</p>
+<a href="/game">Go to Game!</a>
+<form action="/create" method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="hidden" name="building" value="farm">
+    <input type="text" name="username" id="username">
+    <button>Submit</button>
+</form>
+<hr>
+<h2>Past Users</h2>
+<ul>
+    {% for user in users %}
+    <li>{{ user }}</li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for color in colors %}
+    <li>{{ color }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
