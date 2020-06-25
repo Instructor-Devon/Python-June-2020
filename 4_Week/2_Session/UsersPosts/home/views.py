@@ -24,7 +24,7 @@ def create(request):
 
 def posts(request):
     context = {
-        'posts': Post.objects.all(),
+        'posts': Post.objects.order_by('-created_at'),
         'user': User.objects.get(id=request.session['user_id'])
     }
     return render(request, 'posts.html', context)

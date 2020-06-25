@@ -12,6 +12,7 @@
 <body>
     <h1>All Posts!</h1>
     <p>Welcome, {{ user.first_name }}</p>
+    <a href="/logout">Logout</a>
     <h2>Post on the Board!</h2>
     <form action="/posts/create" method="post">
         {% csrf_token %}
@@ -19,7 +20,7 @@
             <label for="content">Your Post</label>
             <textarea name="content" id="content" class="form-control"></textarea>
         </div>
-        <button>Submit</button>
+        <button class="btn btn-primary">Submit</button>
     </form>
     <div id="wrapper">
         {% for post in posts %}
