@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    <h2>Log in!</h2>
+    <form action="/login" method="post">
+        {% csrf_token %}
+        <select name="user" id="">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+            {% endfor %}
+        </select>
+        <button>Log In</button>
+    </form>
     <div id="wrapper">
         <section>
             <h2>Add a User</h2>
@@ -42,21 +52,22 @@
                         <th>Name</th>
                         <th>Age</th>
                         <th>Date Added</th>
+                        <th>Number of Posts</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
                     <tr>
                         <td>{{ user.id }}</td>
-                        <td><a href="/{{ user.id }}">{{ user }}</a></td>
+                        <td>{{ user }}</td>
                         <td>{{ user.age }}</td>
                         <td>{{ user.created_at }}</td>
+                        <td>{{ user.posts.count }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </section>
     </div>
-
 </body>
 </html>

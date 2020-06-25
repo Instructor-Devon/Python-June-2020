@@ -1,9 +1,11 @@
-#wrapper {
+body {
     background-color: aqua;
+}
+#wrapper {
     display: flex;
     justify-content: space-between;
 }
-#wrapper section {
+section {
     width: 50%;
     margin: 0 20px;
 }

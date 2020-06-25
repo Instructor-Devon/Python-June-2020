@@ -15,3 +15,17 @@ def create(request):
         email=request.POST['email'],
     )
     return redirect('/')
+
+def show(request, pizza):
+    print(pizza, "is user id!")
+    # user profile page
+    # prevent user not found!
+    # [user] or []
+    users_with_pizza = User.objects.filter(id=pizza)
+    if len(users_with_pizza) < 1:
+        # no user found with this id!
+        return redirect('/')
+    context = {
+        'user': User.objects.get(id=pizza)
+    }
+    return render(request, 'show.html', context)
