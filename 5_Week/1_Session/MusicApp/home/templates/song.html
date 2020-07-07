@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Music App</title>
+</head>
+<body>
+    <h1>{{ song.title }} - {{ song.artist }}</h1>
+    <h2>Users that liked this song!</h2>
+    <ul>
+    {% for user in song.favorites.all %}
+        <li>{{ user.first_name }}</li>
+    {% endfor %}
+    </ul>
+    <h2>"Add a user"</h2>
+    <form action="/like" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user">User</label>
+            <select name="user" id="user" class="form-control">
+            {% for user in not_liked %}
+                <option value="{{ user.id }}">{{ user.first_name}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <input type="hidden" name="song" value="{{ song.id }}">
+        <button class="btn btn-primary">Like!</button>
+    </form>
+    <h2>"remove a user"</h2>
+    <form action="/unlike" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user">User</label>
+            <select name="user" id="user" class="form-control">
+            {% for user in liked %}
+                <option value="{{ user.id }}">{{ user.first_name}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <input type="hidden" name="song" value="{{ song.id }}">
+        <button class="btn btn-primary">Unlike!</button>
+    </form>
+</body>
+</html>
