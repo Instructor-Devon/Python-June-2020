@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div id="wrapper">
         <section>
             <h2>Add a User</h2>
@@ -41,6 +48,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Email</th>
                         <th>Date Added</th>
                     </tr>
                 </thead>
@@ -50,6 +58,7 @@
                         <td>{{ user.id }}</td>
                         <td><a href="/{{ user.id }}">{{ user }}</a></td>
                         <td>{{ user.age }}</td>
+                        <td>{{ user.email }}</td>
                         <td>{{ user.created_at }}</td>
                     </tr>
                     {% endfor %}

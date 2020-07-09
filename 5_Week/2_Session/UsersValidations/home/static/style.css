@@ -2,6 +2,9 @@
     font-family: 'Anonymous Pro', monospace;
     color: whitesmoke;
 }
+.error {
+    color: red;
+}
 h1, .post > h4 {
     color: orange;
 }

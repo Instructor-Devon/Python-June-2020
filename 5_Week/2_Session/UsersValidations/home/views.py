@@ -1,13 +1,22 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import User
 # Create your views here.
 def index(request):
     context = {
-        'users': User.objects.all()
+        'users': User.objects.get_all_by_email()
     }
     return render(request, 'index.html', context)
 
 def create(request):
+    # something is there for first_name!
+    errors = User.objects.validate(request.POST)
+    # are there errors?
+    if errors:
+        for field, value in errors.items():
+            messages.error(request, value)
+        return redirect('/')
+
     User.objects.create(
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
