@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    {% load tz %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>All Posts!</h1>
+    <p>Welcome, {{ user.first_name }}</p>
+    <a href="/logout">Logout</a>
+    <h2>Post on the Board!</h2>
+    <form action="/posts/create" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="content">Your Post</label>
+            <textarea name="content" id="content" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <div id="wrapper">
+        {% for post in posts %}
+        <div class="post">
+            <h2>{{ post.author.first_name }} says:</h2>
+            <h4>{{ post.content }}</h4>
+            <p>Posted on {{ post.created_at|timezone:"America/Los_Angeles" }}</p>
+        </div>
+        {% endfor %}
+    </div>
+   
+</body>
+</html>

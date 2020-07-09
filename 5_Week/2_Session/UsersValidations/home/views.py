@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
 # Create your views here.
+
 def index(request):
     context = {
         'users': User.objects.get_all_by_email()

@@ -1,0 +1,9 @@
+{% for user in users %}
+<tr>
+    <td>{{ user.id }}</td>
+    <td>{{ user }}</td>
+    <td>{{ user.age }}</td>
+    <td>{{ user.created_at }}</td>
+    <td>{{ user.posts.count }}</td>
+</tr>
+{% endfor %}
