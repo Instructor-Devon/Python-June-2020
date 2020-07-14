@@ -15,18 +15,19 @@
     <script defer src="{% static 'main.js' %}"></script>
 </head>
 <body>
-    <h2>Log in!</h2>
-    <form action="/login" method="post">
-        {% csrf_token %}
-        <select name="user" id="">
-            {% for user in users %}
-                <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
-            {% endfor %}
-        </select>
-        <button>Log In</button>
-    </form>
     <div id="wrapper">
         <section>
+            <h2 id="login-h2">Log in!</h2>
+            <form action="/login" method="post">
+                {% csrf_token %}
+                <select name="user" id="">
+                    {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                    {% endfor %}
+                </select>
+                <button>Log In</button>
+            </form>
+            <hr>
             <h2>Add a User</h2>
             <form action="/create" method="post">
                 {% csrf_token %}
@@ -40,6 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
+                    <div id="error"></div>
                     <input type="email" name="email" id="email" class="form-control">
                 </div>
                 <div class="form-group">
@@ -56,9 +58,9 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Date Added</th>
+                        <th>Email</th>
                         <th>Number of Posts</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

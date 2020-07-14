@@ -1,13 +1,16 @@
 * {
-    font-family: 'Hermit',monospace;
+    font-family: 'Anonymous Pro', monospace;
     color: whitesmoke;
+}
+.error {
+    color: red;
 }
 h1, .post > h4 {
     color: orange;
 }
 input, button, option, select {
     color: black; 
- }
+}
 body {
     background-color: rgb(72, 75, 75);
     padding: 2em;
@@ -15,11 +18,11 @@ body {
 #wrapper {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
 }
-section {
+#wrapper > section {
     width: 50%;
-    padding: 0 2em;
+    margin: 0 2em;
+    box-sizing: border-box;
 }
 .post {
     border: dashed 1px;

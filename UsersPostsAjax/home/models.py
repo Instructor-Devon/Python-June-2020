@@ -1,5 +1,10 @@
 from django.db import models
-
+class UserManager(models.Manager):
+    def email_available(self, email):
+        users = self.filter(email=email)
+        if len(users) > 0:
+            return False
+        return True
 # Create your models here.
 class User(models.Model):
     # here's where the fields go!
@@ -13,7 +18,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField
     # posts
-    # objects -> queries!
+    objects = UserManager()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

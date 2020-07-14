@@ -2,8 +2,8 @@
 <tr>
     <td>{{ user.id }}</td>
     <td>{{ user }}</td>
-    <td>{{ user.age }}</td>
-    <td>{{ user.created_at }}</td>
+    <td>{{ user.email }}</td>
     <td>{{ user.posts.count }}</td>
+    <td><a class="btn btn-danger" href="/{{ user.id }}/delete">Delete</a></td>
 </tr>
 {% endfor %}
