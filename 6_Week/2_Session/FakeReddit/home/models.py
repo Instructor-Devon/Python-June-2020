@@ -1,13 +1,10 @@
 from django.db import models
 from datetime import datetime
-import re
 import bcrypt
 
-EMAIL_MATCH = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-
 class UserManager(models.Manager):
-    def get_all_by_email(self):
-        return self.order_by('email')
+    def get_all_by_username(self):
+        return self.order_by('username')
 
     def register(self, form_data):
         my_hash = bcrypt.hashpw(form_data['password'].encode(), bcrypt.gensalt()).decode()
@@ -15,15 +12,15 @@ class UserManager(models.Manager):
             first_name=form_data['first_name'],
             last_name=form_data['last_name'],
             password=my_hash,
-            email=form_data['email'],
+            username=form_data['username'],
         )
 
-    def authenticate(self, email, password):
+    def authenticate(self, username, password):
         # return True/False
-        users_with_email = self.filter(email=email)
-        if not users_with_email:
+        users_with_username = self.filter(username=username)
+        if not users_with_username:
             return False
-        user = users_with_email[0]
+        user = users_with_username[0]
         return bcrypt.checkpw(password.encode(), user.password.encode())
 
     def validate(self, form_data):
@@ -35,19 +32,17 @@ class UserManager(models.Manager):
         if len(form_data['last_name']) < 1:
             errors['last_name'] = 'Last Name field is required.'
 
-        if len(form_data['email']) < 1:
-            errors['email'] = 'Email field is required.'
+        if len(form_data['username']) < 5:
+            errors['username'] = 'Username must be at least 5 characters.'
 
-        if not EMAIL_MATCH.match(form_data['email']):
-            errors['email'] = 'Invalid Email.'
 
         if form_data['password'] != form_data['confirm']:
             errors['password'] = "Passwords do not match"
         
-        # prevent duplicate emails!
-        users_with_email = self.filter(email=form_data['email'])
-        if users_with_email: # if NON-EMPTY list
-            errors['email'] = 'Email already in use.'
+        # prevent duplicate usernames!
+        users_with_username = self.filter(username=form_data['username'])
+        if users_with_username: # if NON-EMPTY list
+            errors['username'] = 'username already in use.'
 
         return errors
 # Create your models here.
@@ -57,7 +52,7 @@ class User(models.Model):
     # id
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
 
 
@@ -66,5 +61,8 @@ class User(models.Model):
 
     objects = UserManager()
 
+    # posts => [{POST}, {POST}]
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
