@@ -5,10 +5,7 @@ import bcrypt
 # Create your views here.
 
 def index(request):
-    context = {
-        'users': User.objects.get_all_by_email()
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 def create(request):
     # something is there for first_name!
