@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Weddings!</h1>
+    <a href="/logout">Logout</a>
+    <h2>Howdy, {{ user.first_name }}</h2>
+    <h2>Create a Wedding</h2>
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="/weddings/create" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="one">Wedder One</label>
+            <input type="text" name="one" id="one" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="two">Wedder Two</label>
+            <input type="text" name="two" id="two" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="date">Wedding Date</label>
+            <input type="date" name="date" id="date" class="form-control">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</body>
+</html>
