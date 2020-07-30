@@ -27,3 +27,6 @@ class Wedding(models.Model):
     guests = models.ManyToManyField(User, related_name='weddings_attending')
 
     objects = WeddingManager()
+
+    def __str__(self):
+        return f"{self.wedder_one} & {self.wedder_two}"
